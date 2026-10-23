@@ -1,0 +1,36 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adf-healthcare-dk"
+		},
+		"LS_ADLS_Healthcare_properties_typeProperties_url": {
+			"value": "https://adlshealthcareadf.dfs.core.windows.net/"
+		},
+		"LS_AzureDatabricks_properties_typeProperties_existingClusterId": {
+			"value": "1009-071953-3u76zt7f"
+		},
+		"LS_AzureKeyVault_properties_typeProperties_baseUrl": {
+			"value": "https://Healthcare-Keyvault-AZ.vault.azure.net/"
+		},
+		"LS_AzureSqlDatabase_properties_typeProperties_server": {
+			"value": "healthcare-server-db.database.windows.net"
+		},
+		"LS_AzureSqlDatabase_properties_typeProperties_database": {
+			"value": "healthcare-db"
+		},
+		"LS_AzureSqlDatabase_properties_typeProperties_userName": {
+			"value": "DhaaraniKiran"
+		},
+		"LS_PosgresSql_properties_typeProperties_server": {
+			"value": "ep-solitary-rice-b3lgeczm-pooler.c-4.ap-southeast-1.aws.neon.tech"
+		},
+		"LS_PosgresSql_properties_typeProperties_database": {
+			"value": "neondb"
+		},
+		"LS_PosgresSql_properties_typeProperties_username": {
+			"value": "neondb_owner"
+		}
+	}
+}
