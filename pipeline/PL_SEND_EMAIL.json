@@ -58,6 +58,99 @@
 					"variableName": "body_footer",
 					"value": "for any queries, please contact abc@gmail.com"
 				}
+			},
+			{
+				"name": "Prepare email subject",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "subject",
+					"value": {
+						"value": "@{pipeline().globalParameters.env} | SUCCESS | HEALTHCARE MASTER RUN",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Prepare email body",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Prepare email body header",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Prepare email body footer",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Prepare email subject",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "read audit status",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "email_body",
+					"value": {
+						"value": "{\n\"subject\":\"@{variables('subject')}\",\n\"email_receipients\":\"@{pipeline().globalParameters.email_receipients}\",\n\"body_header\":\"@{variables('body_header')}\"\n\"body_footer\":\"@{variables('body_footer')}\",\n\"status_table\": @{activity('read audit status').output.value}\n}",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "send email",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "Prepare email body",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"url": {
+						"value": "@pipeline().globalParameters.logic_apps_url",
+						"type": "Expression"
+					},
+					"body": {
+						"value": "@variables('email_body')",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"parameters": {
@@ -70,6 +163,12 @@
 				"type": "String"
 			},
 			"body_footer": {
+				"type": "String"
+			},
+			"subject": {
+				"type": "String"
+			},
+			"email_body": {
 				"type": "String"
 			}
 		},
