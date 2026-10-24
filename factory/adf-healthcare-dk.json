@@ -1,0 +1,12 @@
+{
+	"name": "adf-healthcare-dk",
+	"properties": {
+		"globalParameters": {
+			"email_receipients": {
+				"type": "string",
+				"value": "dhaaranikiran@gmail.com"
+			}
+		}
+	},
+	"location": "indiasouthcentral"
+}
