@@ -26,7 +26,7 @@
 				}
 			},
 			{
-				"name": "Source to silver postgres adls csv",
+				"name": "Source to silver adls csv",
 				"type": "ExecutePipeline",
 				"dependsOn": [],
 				"policy": {
@@ -53,7 +53,7 @@
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "Source to silver postgres adls csv",
+						"activity": "Source to silver adls csv",
 						"dependencyConditions": [
 							"Completed"
 						]
