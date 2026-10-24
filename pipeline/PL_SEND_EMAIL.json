@@ -18,7 +18,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "select * from ctrl.audit_log where adf_run_id=\"@{pipeline().parameters.adf_run_id}\"",
+							"value": "select * from ctrl.audit_log where adf_run_id='@{pipeline().parameters.adf_run_id}'",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -42,7 +42,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "body_header",
-					"value": "Ingestion is completed. Please find the status below"
+					"value": "Ingestion is completed and Please find the status below"
 				}
 			},
 			{
@@ -113,7 +113,7 @@
 				"typeProperties": {
 					"variableName": "email_body",
 					"value": {
-						"value": "{\n\"subject\":\"@{variables('subject')}\",\n\"email_receipients\":\"@{pipeline().globalParameters.email_receipients}\",\n\"body_header\":\"@{variables('body_header')}\"\n\"body_footer\":\"@{variables('body_footer')}\",\n\"status_table\": @{activity('read audit status').output.value}\n}",
+						"value": "{\n\"subject\":\"@{variables('subject')}\",\n\"email_receipients\":\"@{pipeline().globalParameters.email_receipients}\",\n\"body_header\":\"@{variables('body_header')}\",\n\"body_footer\":\"@{variables('body_footer')}\",\n\"status_table\": @{activity('read audit status').output.value}\n}",
 						"type": "Expression"
 					}
 				}
@@ -155,7 +155,8 @@
 		],
 		"parameters": {
 			"adf_run_id": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "61a51e7f-6322-4731-abf2-a6880e2a8c49"
 			}
 		},
 		"variables": {
